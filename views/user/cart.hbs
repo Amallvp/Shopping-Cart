@@ -1,0 +1,66 @@
+<section>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                  
+                    <td>
+                        <img style="width:50px;height:50px" src='/product-images/{{this.product._id}}.jpg' alt="">
+                    </td>
+
+                    <td>{{this.product.name}}</td>
+               
+                    <td>
+                        <button onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)" class="cart-item-count ms-3 btn btn-primary"> - </button> 
+                        {{this.quantity}}
+                        <button onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)" class="cart-item-count me-3 btn btn-primary"> + </button>
+                    </td>
+
+                    <td>
+                        <a href="" class="btn btn-danger"  onclick="removeProduct('{{this.cartId}}', '{{this._id}}')">Remove</a>
+                    </td>
+
+
+                </tr>
+                {{/each}}
+
+            </tbody>
+
+
+        </table>
+    </div>
+
+</section>
+
+<script>
+    
+
+     function changeQuantity(cartId, productId, count){
+
+        $.ajax({
+
+            url:'/change-product-quantity',
+            data:{
+                cart:cartId,
+                product:productId,
+                count:count
+            },
+            method:'post',
+            success:(response)=>{
+
+                alert(response)
+            }
+        })
+    } 
+
+
+</script>
