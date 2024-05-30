@@ -6,7 +6,7 @@ const { response } = require('../app');
 // const { response } = require('../app');
 
 const verifyLogin = (req, res, next) => {
-  if (req.session.loggedIn) {
+  if (req.session.userLoggedIn) {
     next()
   } else {
     res.redirect('/login')
@@ -33,11 +33,11 @@ router.get('/', async function (req, res, next) {
 
 
 router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.user) {
     res.redirect('/')
   } else {
-    res.render('user/login', { 'loginError': req.session.loginError })
-    req.session.loginError = false
+    res.render('user/login', { 'loginError': req.session.userLoginError })
+    req.session.userLoginError = false
   }
 
 })
@@ -53,11 +53,13 @@ router.get('/signup', (req, res) => {
 router.post('/signup', (req, res) => {
 
   userHelper.doSignUp(req.body).then((response) => {
-    res.redirect('/login')
+    
     console.log(response);
-    req.session.loggedIn = true
+   
     req.session.user = response
-    res.redirect('/')
+    req.session.user.loggedIn = true
+    // res.redirect('/')
+    res.redirect('/login')
   })
 })
 
@@ -67,13 +69,14 @@ router.post('/login', (req, res) => {
 
     if (response.status) {
 
-      req.session.loggedIn = true
+      
       req.session.user = response.user
+      req.session.user.loggedIn = true
       res.redirect('/')
 
     } else {
 
-      req.session.loginError = "Invalid username or password"
+      req.session.userLoginError = "Invalid username or password"
 
       res.redirect('/login')
     }
@@ -82,7 +85,9 @@ router.post('/login', (req, res) => {
   })
 
   router.get('/logout', (req, res) => {
-    req.session.destroy()
+    
+    req.session.user=null
+    req.session.userLoggedIn=false
 
     res.redirect('/')
   })
