@@ -2,27 +2,23 @@
     <div class="container">
 
         <div class="row mt-5">
-            <div>
-                <a href="/admin/addProduct" class="btn btn-success ms-auto">Add Products</a>
-
-            </div>
-
-            <table class="table mt-5">
+            
+            <table class="table mt-3" id="myTable">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Name</th>
                         <th scope="col">category</th>
                         <th scope="col">Description</th>
-
-                        <th scope="col">image</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Options</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each products}}
 
                     <tr>
-    
+
 
                         <th scope="row">1</th>
                         <td>{{this.name}}</td>
@@ -41,6 +37,17 @@
 
                 </tbody>
             </table>
+
+            <div class= "text-center mt-5">
+                <a href="/admin/addProduct" class="btn btn-success ms-auto mb-5 w-25">Add Products</a>
+
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
