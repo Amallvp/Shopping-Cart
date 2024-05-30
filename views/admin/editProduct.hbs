@@ -18,6 +18,10 @@
                     <input type="text" class="form-control" value="{{product.description}}" name="description"
                         placeholder="">
 
+                        <label for="exampleFormControlInput1" class="form-label">Price</label>
+                    <input type="text" class="form-control" value="{{product.description}}" name="price"
+                        placeholder="">
+
                     <label for="">Image</label>
                     <input class="form-control" name="image" type="file" id="" onchange="viewImage(event)">
                     <img src="/product-images/{{product._id}}.jpg" alt="" style="width: 100px;height:auto" id="imgView">

@@ -58,7 +58,8 @@ updateProduct:(productId,productDetails)=>{
             $set:{
                 name:productDetails.name,
                 category:productDetails.category,
-                description:productDetails.description
+                description:productDetails.description,
+                price:productDetails.price
             }
         }).then((response)=>{
 
